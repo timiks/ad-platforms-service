@@ -1,0 +1,6 @@
+@AdPlatformsService_HostAddress = http://localhost:5209
+
+GET {{AdPlatformsService_HostAddress}}/ads/
+Accept: application/json
+
+###
