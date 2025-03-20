@@ -1,7 +1,5 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.AspNetCore.Mvc;
-using NUnit.Framework;
-using AdPlatformsService;
 
 namespace AdPlatformsService.Tests
 {

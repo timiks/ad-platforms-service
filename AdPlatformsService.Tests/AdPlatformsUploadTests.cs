@@ -1,11 +1,7 @@
-using System.IO;
-using System.Text;
-using System.Collections.Immutable;
+п»їusing System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using NUnit.Framework;
 using Moq;
-using AdPlatformsService;
 
 namespace AdPlatformsService.Tests
 {
@@ -24,7 +20,7 @@ namespace AdPlatformsService.Tests
         public void UploadAdPlatforms_ValidFile_ShouldLoadDataCorrectly()
         {
             // Arrange
-            var fileContent = "Яндекс.Директ:/ru\nРевдинский рабочий:/ru/svrd/revda,/ru/svrd/pervik";
+            var fileContent = "РЇРЅРґРµРєСЃ.Р”РёСЂРµРєС‚:/ru\nР РµРІРґРёРЅСЃРєРёР№ СЂР°Р±РѕС‡РёР№:/ru/svrd/revda,/ru/svrd/pervik";
             var mockFile = new Mock<IFormFile>();
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(fileContent));
 
@@ -41,9 +37,9 @@ namespace AdPlatformsService.Tests
             Assert.That(data, Has.Count.EqualTo(3));
             Assert.Multiple(() =>
             {
-                Assert.That(data["/ru"], Does.Contain("Яндекс.Директ"));
-                Assert.That(data["/ru/svrd/revda"], Does.Contain("Ревдинский рабочий"));
-                Assert.That(data["/ru/svrd/pervik"], Does.Contain("Ревдинский рабочий"));
+                Assert.That(data["/ru"], Does.Contain("РЇРЅРґРµРєСЃ.Р”РёСЂРµРєС‚"));
+                Assert.That(data["/ru/svrd/revda"], Does.Contain("Р РµРІРґРёРЅСЃРєРёР№ СЂР°Р±РѕС‡РёР№"));
+                Assert.That(data["/ru/svrd/pervik"], Does.Contain("Р РµРІРґРёРЅСЃРєРёР№ СЂР°Р±РѕС‡РёР№"));
             });
         }
 
@@ -67,7 +63,7 @@ namespace AdPlatformsService.Tests
         public void UploadAdPlatforms_InvalidFileFormat_ShouldIgnoreInvalidLines()
         {
             // Arrange
-            var fileContent = "Яндекс.Директ:/ru\nInvalidLine\nРевдинский рабочий:/ru/svrd/revda";
+            var fileContent = "РЇРЅРґРµРєСЃ.Р”РёСЂРµРєС‚:/ru\nInvalidLine\nР РµРІРґРёРЅСЃРєРёР№ СЂР°Р±РѕС‡РёР№:/ru/svrd/revda";
             var mockFile = new Mock<IFormFile>();
             var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(fileContent));
 
@@ -84,8 +80,8 @@ namespace AdPlatformsService.Tests
             Assert.That(data, Has.Count.EqualTo(2));
             Assert.Multiple(() =>
             {
-                Assert.That(data["/ru"], Does.Contain("Яндекс.Директ"));
-                Assert.That(data["/ru/svrd/revda"], Does.Contain("Ревдинский рабочий"));
+                Assert.That(data["/ru"], Does.Contain("РЇРЅРґРµРєСЃ.Р”РёСЂРµРєС‚"));
+                Assert.That(data["/ru/svrd/revda"], Does.Contain("Р РµРІРґРёРЅСЃРєРёР№ СЂР°Р±РѕС‡РёР№"));
             });
         }
     }
